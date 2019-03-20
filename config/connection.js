@@ -10,19 +10,12 @@ if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: 'hacktheplanet',
-        database: 'todoagain_db'
+        password: 'root',
+        database: 'burgers_db'
     });
 };
 
-// Make connection
-connection.connect(function(err) {
-    if (err) {
-        console.error("error connecting: " + err.stack);
-        return;
-    }
-    console.log("connected as id " + connection.threadId);
-});
+
 
 // Export connection
 module.exports = connection;
