@@ -1,13 +1,7 @@
 // Setup MySQL Connection
 var mysql = require("mysql");
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: "root",
-    database: "burgers_db"
-});
+var connection;
 
 // Heroku
 if (process.env.JAWSDB_URL) {
@@ -16,8 +10,8 @@ if (process.env.JAWSDB_URL) {
     connection = mysql.createConnection({
         host: "localhost",
         user: "root",
-        password: 'hacktheplanet',
-        database: 'todoagain_db'
+        password: 'root',
+        database: 'burgers_db'
     });
 };
 
