@@ -1,45 +1,42 @@
-var connection = require('../config/connection.js');
+var connection = require('./connection');
 
-// create the methods that will execute the necessary MySQL commands in the controllers
-// These are the methods you will need to use in order to retrieve and store data in your database
+connection.connect(function(err) {
+    if (err) {
+        console.error('error connecting: ' + err.stack);
+        return;
+    };
+    console.log('connected as id ' + connection.threadId);
+});
 
-var orm = 
-{
-    // selectAll()
-    selectAll: function(callback)
-    {
-        // MySQL query
-        connection.query('SELECT * FROM burgers', function(err, result) {
+var orm = {
+    // Select All
+    selectAll: function(callback) {
+        // run query
+        connection.query('SELECT * FROM burgers', function (err, result) {
             if (err) throw err;
             callback(result);
         });
     },
 
-    // insertOne()
-    insertOne: function(burger_name, callback)
-    {
-        // MySQL query
-        connection.query('INSERT INTO burgers SET ?',
-        {
+    // Insert One
+    insertOne: function(burger_name, callback) {
+        connection.query('INSERT INTO burgers SET ?', {
             burger_name: burger_name,
             devoured: false,
-        }, function(err, result) {
+        }, function (err, result) {
             if (err) throw err;
-            callback(result)
+            callback(result);
         });
     },
 
-    // updateOne()
-    updateOne: function(burgerID, callback) 
-    {
-        // MySQL query
-        connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: burgerID}],
-            function(err, result) {
-                if (err) throw err;
-                callback(result);
-            });
+    // Update One
+    updateOne: function(burgerID, callback) {
+        // run query
+        connection.query('UPDATE burgers SET ? WHERE ?', [{devoured: true}, {id: burgerID}], function(err, result) {
+            if (err) throw err;
+            callback(result);
+        });
     }
 };
 
-// Export the ORM object
 module.exports = orm;
